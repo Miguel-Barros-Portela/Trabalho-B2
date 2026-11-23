@@ -1,5 +1,10 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 #include "estacionamento.h"
+
+#define MAX_VAGAS (FILEIRAS * COLUNAS)
 
 void inicializar_mapa(int mapa[FILEIRAS][COLUNAS]) {
     for (int f = 0; f < FILEIRAS; f++) {
@@ -21,4 +26,38 @@ void exibir_menu(void) {
     printf("8 - Exibir relatorio da ocupacao\n");
     printf("0 - Encerrar\n");
     printf("Escolha uma opcao: ");
+    scanf("%d", &menu);
 }
+
+
+// Funções auxiliares
+static void limpar_buffer(void) {
+    int ch;
+    while ((ch = getchar()) != '\n' && ch != EOF) {
+    }
+}
+
+static int identificador_valido(const char *id) {
+    if (strlen(id) != 7) {
+        return 0;
+    }
+    for (int i = 0; i < 7; i++) {
+        unsigned char c = (unsigned char)id[i];
+        if (!isalnum(c)) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+static int identificador_duplicado(const Veiculo *veiculos, int qtd, const char *id) {
+    for (int i = 0; i < qtd; i++) {
+        if (strcmp(veiculos[i].identificador, id) == 0) {
+            return 1;
+        }
+    }
+    return 0;
+}
+//-------------------------------------------------------------------------------------------------------------//
+
+
