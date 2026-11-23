@@ -193,3 +193,32 @@ int cadastrar_veiculo(Veiculo **veiculos, int *qtd, int *cap, int mapa[FILEIRAS]
     return 1;
 }
 //-------------------------------------------------------------------------------------------------------------//
+
+//Função 2 do menu
+void consultar_veiculo(const Veiculo *veiculos, int qtd) {
+    if (veiculos == NULL || qtd == 0) {
+        printf("Nenhum veiculo cadastrado.\n");
+        return;
+    }
+
+    char id[8];
+    printf("Digite o identificador (7 caracteres): ");
+    if (!ler_identificador_normalizado(id, sizeof(id))) {
+        printf("Identificador invalido.\n");
+        return;
+    }
+
+    int idx = buscar_indice_por_id(veiculos, qtd, id);
+    if (idx == -1) {
+        printf("Veiculo com identificador %s nao encontrado.\n", id);
+        return;
+    }
+
+    const Veiculo *v = &veiculos[idx];
+    printf("\n--- Veiculo encontrado ---\n");
+    printf("Identificador: %s\n", v->identificador);
+    printf("Descricao: %s\n", v->descricao);
+    printf("Categoria: %d\n", v->categoria);
+    printf("Vaga: Fileira %d, Coluna %d\n", v->fileira + 1, v->coluna + 1);
+}
+//-------------------------------------------------------------------------------------------------------------//
