@@ -222,3 +222,49 @@ void consultar_veiculo(const Veiculo *veiculos, int qtd) {
     printf("Vaga: Fileira %d, Coluna %d\n", v->fileira + 1, v->coluna + 1);
 }
 //-------------------------------------------------------------------------------------------------------------//
+//Função 3 do menu
+int atualizar_veiculo(Veiculo *veiculos, int qtd) {
+    if (veiculos == NULL || qtd == 0) {
+        printf("Nenhum veiculo cadastrado.\n");
+        return 0;
+    }
+
+    char id[8];
+    printf("Identificador do veiculo a atualizar: ");
+    if (!ler_identificador_normalizado(id, sizeof(id))) {
+        printf("Identificador invalido.\n");
+        return 0;
+    }
+
+    int idx = buscar_indice_por_id(veiculos, qtd, id);
+    if (idx == -1) {
+        printf("Veiculo nao encontrado.\n");
+        return 0;
+    }
+
+    char buffer[128];
+    printf("Nova descricao (ate 60 caracteres): ");
+    if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
+        return 0;
+    }
+    buffer[strcspn(buffer, "\r\n")] = '\0';
+    if (buffer[0] == '\0' || strlen(buffer) > 60) {
+        printf("Descricao invalida.\n");
+        return 0;
+    }
+
+    int nova_cat = 0;
+    printf("Nova categoria (1 ou 2): ");
+    if (scanf("%d", &nova_cat) != 1 || (nova_cat != 1 && nova_cat != 2)) {
+        printf("Categoria invalida.\n");
+        limpar_buffer();
+        return 0;
+    }
+    limpar_buffer();
+
+    strcpy(veiculos[idx].descricao, buffer);
+    veiculos[idx].categoria = nova_cat;
+    printf("Dados do veiculo %s atualizados com sucesso.\n", veiculos[idx].identificador);
+    return 1;
+}
+//-------------------------------------------------------------------------------------------------------------//
