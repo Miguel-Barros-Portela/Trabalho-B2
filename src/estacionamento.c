@@ -58,6 +58,32 @@ static int identificador_duplicado(const Veiculo *veiculos, int qtd, const char 
     }
     return 0;
 }
+
+static int ler_identificador_normalizado(char *destino, size_t tam_destino) {
+    char buffer[128];
+    if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
+        return 0;
+    }
+    buffer[strcspn(buffer, "\r\n")] = '\0';
+    for (size_t i = 0; buffer[i] != '\0'; i++) {
+        buffer[i] = (char)toupper((unsigned char)buffer[i]);
+    }
+    if (!identificador_valido(buffer) || strlen(buffer) >= tam_destino) {
+        return 0;
+    }
+    strcpy(destino, buffer);
+    return 1;
+}
+
+static int buscar_indice_por_id(const Veiculo *veiculos, int qtd, const char *id) {
+    for (int i = 0; i < qtd; i++) {
+        if (strcmp(veiculos[i].identificador, id) == 0) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 //-------------------------------------------------------------------------------------------------------------//
 
 //Função 1 do menu
