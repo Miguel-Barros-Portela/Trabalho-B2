@@ -268,3 +268,55 @@ int atualizar_veiculo(Veiculo *veiculos, int qtd) {
     return 1;
 }
 //-------------------------------------------------------------------------------------------------------------//
+//Função 4 do menu
+int remover_veiculo(Veiculo **veiculos, int *qtd, int *cap, int mapa[FILEIRAS][COLUNAS]) {
+    if (veiculos == NULL || *veiculos == NULL || qtd == NULL || cap == NULL || mapa == NULL) {
+        return 0;
+    }
+    if (*qtd == 0) {
+        printf("Nenhum veiculo cadastrado para remover.\n");
+        return 0;
+    }
+
+    char id[8];
+    printf("Identificador do veiculo a remover: ");
+    if (!ler_identificador_normalizado(id, sizeof(id))) {
+        printf("Identificador invalido.\n");
+        return 0;
+    }
+
+    int idx = buscar_indice_por_id(*veiculos, *qtd, id);
+    if (idx == -1) {
+        printf("Veiculo nao encontrado.\n");
+        return 0;
+    }
+
+    int f = (*veiculos)[idx].fileira;
+    int c = (*veiculos)[idx].coluna;
+    mapa[f][c] = 0;
+
+    for (int i = idx; i < (*qtd) - 1; i++) {
+        (*veiculos)[i] = (*veiculos)[i + 1];
+    }
+    (*qtd)--;
+
+    if (*qtd == 0) {
+        free(*veiculos);
+        *veiculos = NULL;
+        *cap = 0;
+    } else if (*cap > 2 && (*qtd) <= (*cap) / 4) {
+        int nova_cap = (*cap) / 2;
+        if (nova_cap < 2) {
+            nova_cap = 2;
+        }
+        Veiculo *temp = realloc(*veiculos, (size_t)nova_cap * sizeof(Veiculo));
+        if (temp != NULL) {
+            *veiculos = temp;
+            *cap = nova_cap;
+        }
+    }
+
+    printf("Veiculo %s removido e vaga (%d, %d) liberada.\n", id, f + 1, c + 1);
+    return 1;
+}
+//-------------------------------------------------------------------------------------------------------------//
