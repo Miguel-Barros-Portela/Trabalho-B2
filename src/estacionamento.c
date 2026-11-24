@@ -380,3 +380,22 @@ int mover_veiculo(Veiculo *veiculos, int qtd, int mapa[FILEIRAS][COLUNAS]) {
     return 1;
 }
 //-------------------------------------------------------------------------------------------------------------//
+//Função 6 do menu
+void listar_veiculos(const Veiculo *veiculos, int qtd) {
+    if (veiculos == NULL || qtd == 0) {
+        printf("Nenhum veiculo cadastrado.\n");
+        return;
+    }
+
+    printf("\n=== VEICULOS CADASTRADOS (%d) ===\n", qtd);
+    for (int i = 0; i < qtd; i++) {
+        printf("[%d] ID: %s | Cat: %d | Vaga: (%d,%d) | Desc: %s\n",
+               i + 1,
+               veiculos[i].identificador,
+               veiculos[i].categoria,
+               veiculos[i].fileira + 1,
+               veiculos[i].coluna + 1,
+               veiculos[i].descricao);
+    }
+}
+//-------------------------------------------------------------------------------------------------------------//
