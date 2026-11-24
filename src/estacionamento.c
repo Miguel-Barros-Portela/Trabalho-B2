@@ -399,3 +399,20 @@ void listar_veiculos(const Veiculo *veiculos, int qtd) {
     }
 }
 //-------------------------------------------------------------------------------------------------------------//
+//Função 6 do menu
+void exibir_mapa(const int mapa[FILEIRAS][COLUNAS]) {
+    printf("\n=== MAPA DE VAGAS (0 = Livre, 1 = Ocupada) ===\n   ");
+    for (int c = 0; c < COLUNAS; c++) {
+        printf(" C%d", c + 1);
+    }
+    printf("\n");
+
+    for (int f = 0; f < FILEIRAS; f++) {
+        printf("F%d ", f + 1);
+        for (int c = 0; c < COLUNAS; c++) {
+            printf("  %d", mapa[f][c]);
+        }
+        printf("\n");
+    }
+}
+//-------------------------------------------------------------------------------------------------------------//
