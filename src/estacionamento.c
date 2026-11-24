@@ -399,7 +399,7 @@ void listar_veiculos(const Veiculo *veiculos, int qtd) {
     }
 }
 //-------------------------------------------------------------------------------------------------------------//
-//Função 6 do menu
+//Função 7 do menu
 void exibir_mapa(const int mapa[FILEIRAS][COLUNAS]) {
     printf("\n=== MAPA DE VAGAS (0 = Livre, 1 = Ocupada) ===\n   ");
     for (int c = 0; c < COLUNAS; c++) {
@@ -414,5 +414,39 @@ void exibir_mapa(const int mapa[FILEIRAS][COLUNAS]) {
         }
         printf("\n");
     }
+}
+//-------------------------------------------------------------------------------------------------------------//
+//Função 8 do menu
+void exibir_relatorio(const Veiculo *veiculos, int qtd, int cap, const int mapa[FILEIRAS][COLUNAS]) {
+    int ocupadas = 0;
+    int cat1 = 0;
+    int cat2 = 0;
+
+    for (int f = 0; f < FILEIRAS; f++) {
+        for (int c = 0; c < COLUNAS; c++) {
+            if (mapa != NULL && mapa[f][c] != 0) {
+                ocupadas++;
+            }
+        }
+    }
+
+    if (veiculos != NULL) {
+        for (int i = 0; i < qtd; i++) {
+            if (veiculos[i].categoria == 1) {
+                cat1++;
+            } else if (veiculos[i].categoria == 2) {
+                cat2++;
+            }
+        }
+    }
+
+    int livres = MAX_VAGAS - ocupadas;
+    double taxa = (MAX_VAGAS > 0) ? ((double)ocupadas / MAX_VAGAS) * 100.0 : 0.0;
+
+    printf("\n=== RELATORIO DE OCUPACAO ===\n");
+    printf("Total de vagas: %d\n", MAX_VAGAS);
+    printf("Ocupadas: %d | Livres: %d (%.1f%% ocupado)\n", ocupadas, livres, taxa);
+    printf("Registros no vetor: %d (capacidade alocada: %d)\n", qtd, cap);
+    printf("Por categoria -> Cat 1: %d | Cat 2: %d\n", cat1, cat2);
 }
 //-------------------------------------------------------------------------------------------------------------//
