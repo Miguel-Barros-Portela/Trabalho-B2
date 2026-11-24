@@ -65,6 +65,8 @@ Com o terminal aberto na raiz do repositório (`Trabalho-B2`), compile todos os 
 gcc -std=c11 -Wall -Wextra -pedantic src\main.c src\estacionamento.c -o estacionamento.exe
 .\estacionamento.exe
 
+## IA
 
+Eu Miguel Barros Portela declaro que usei Ia(Gemini) para revisão ortografica do README.md e estruturação do mesmo e tambem ultilizei para revisão da sintaxe do codigo escrito.
 
-#Hash versão submetida: eea81b2a8ccd0aa4b9cfaa51906f037fccb088cb
+##Hash versão submetida: eea81b2a8ccd0aa4b9cfaa51906f037fccb088cb
