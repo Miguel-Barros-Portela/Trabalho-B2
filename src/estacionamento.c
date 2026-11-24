@@ -414,7 +414,7 @@ void exibir_mapa(const int mapa[FILEIRAS][COLUNAS]) {
         }
         printf("\n");
     }
-}
+} 
 //-------------------------------------------------------------------------------------------------------------//
 //Função 8 do menu
 void exibir_relatorio(const Veiculo *veiculos, int qtd, int cap, const int mapa[FILEIRAS][COLUNAS]) {

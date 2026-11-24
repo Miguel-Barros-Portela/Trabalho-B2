@@ -5,7 +5,7 @@
 #define COLUNAS 5
 
 typedef struct {
-    char identificador[8]; 
+    char identificador[8];  
     char descricao[61];    
     int categoria;
     int fileira;

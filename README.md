@@ -12,7 +12,7 @@
 
 ---
 
-## Descrição do Cenário e Escopo
+## Descrição do Cenário e Escopo 
 
 O sistema simula o controle operacional de um estacionamento de console em **C11** com capacidade máxima de **20 vagas**, organizadas em **4 fileiras** e **5 colunas**.
 

@@ -27,7 +27,7 @@ int main(void) {
         }
         limpar_entrada_main();
 
-        switch (opcao) {
+        switch (opcao) { 
             case 1:
                 cadastrar_veiculo(&veiculos, &qtd, &cap, mapa);
                 break;
