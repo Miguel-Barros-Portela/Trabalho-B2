@@ -64,3 +64,7 @@ Com o terminal aberto na raiz do repositório (`Trabalho-B2`), compile todos os 
 ```powershell
 gcc -std=c11 -Wall -Wextra -pedantic src\main.c src\estacionamento.c -o estacionamento.exe
 .\estacionamento.exe
+
+
+
+#Hash versão submetida: eea81b2a8ccd0aa4b9cfaa51906f037fccb088cb
