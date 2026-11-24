@@ -320,3 +320,63 @@ int remover_veiculo(Veiculo **veiculos, int *qtd, int *cap, int mapa[FILEIRAS][C
     return 1;
 }
 //-------------------------------------------------------------------------------------------------------------//
+//Função 5 do menu
+int mover_veiculo(Veiculo *veiculos, int qtd, int mapa[FILEIRAS][COLUNAS]) {
+    if (veiculos == NULL || qtd == 0 || mapa == NULL) {
+        printf("Nenhum veiculo cadastrado.\n");
+        return 0;
+    }
+
+    char id[8];
+    printf("Identificador do veiculo a mover: ");
+    if (!ler_identificador_normalizado(id, sizeof(id))) {
+        printf("Identificador invalido.\n");
+        return 0;
+    }
+
+    int idx = buscar_indice_por_id(veiculos, qtd, id);
+    if (idx == -1) {
+        printf("Veiculo nao encontrado.\n");
+        return 0;
+    }
+
+    int nova_f_exibida = 0;
+    int nova_c_exibida = 0;
+    printf("Nova fileira (1 a %d) e coluna (1 a %d): ", FILEIRAS, COLUNAS);
+    if (scanf("%d %d", &nova_f_exibida, &nova_c_exibida) != 2) {
+        printf("Posicao invalida.\n");
+        limpar_buffer();
+        return 0;
+    }
+    limpar_buffer();
+
+    if (nova_f_exibida < 1 || nova_f_exibida > FILEIRAS ||
+        nova_c_exibida < 1 || nova_c_exibida > COLUNAS) {
+        printf("Posicao fora do intervalo.\n");
+        return 0;
+    }
+
+    int nf = nova_f_exibida - 1;
+    int nc = nova_c_exibida - 1;
+    int af = veiculos[idx].fileira;
+    int ac = veiculos[idx].coluna;
+
+    if (nf == af && nc == ac) {
+        printf("O veiculo ja esta nessa vaga.\n");
+        return 0;
+    }
+
+    if (mapa[nf][nc] != 0) {
+        printf("A vaga (%d, %d) ja esta ocupada.\n", nova_f_exibida, nova_c_exibida);
+        return 0;
+    }
+
+    mapa[af][ac] = 0;
+    mapa[nf][nc] = 1;
+    veiculos[idx].fileira = nf;
+    veiculos[idx].coluna = nc;
+
+    printf("Veiculo %s movido para a vaga (%d, %d).\n", id, nova_f_exibida, nova_c_exibida);
+    return 1;
+}
+//-------------------------------------------------------------------------------------------------------------//
